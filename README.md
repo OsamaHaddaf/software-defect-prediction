@@ -1,67 +1,72 @@
-# ARTI 406 Software Defect Prediction
+# ARTI 406 - Software Defect Prediction
 
-Machine learning course project for predicting defective software modules using KC1 software metrics.
+This is a machine learning course project that predicts whether a software module is defective or non-defective using the KC1 software defect dataset.
 
-## Project Topic
-
-Software Defect Prediction using:
+The project compares two models:
 
 - Support Vector Machine (SVM)
 - Random Forest
 
-## Folder Structure
-
-- `data/raw/` - put the original KC1 CSV dataset here
-- `data/processed/` - cleaned or transformed datasets
-- `notebooks/` - Jupyter notebooks for experiments
-- `src/` - reusable Python code
-- `figures/` - exported plots such as confusion matrices and ROC curves
-- `reports/` - final report assets and result tables
-
-## VS Code Setup
-
-Open this folder in VS Code:
-
-```powershell
-code "C:\Users\osama\Documents\Codex\2026-05-19\files-mentioned-by-the-user-arti"
-```
-
-Create and activate a virtual environment:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
-Install dependencies:
-
-```powershell
-pip install -r requirements.txt
-```
-
-Register the notebook kernel:
-
-```powershell
-python -m ipykernel install --user --name arti406-sdp --display-name "ARTI406 SDP"
-```
-
 ## Dataset
 
-Download or copy the KC1 dataset CSV into:
+The dataset file should be placed here:
 
 ```text
 data/raw/kc1.csv
 ```
 
-The target column should be named `defects`. If the dataset uses `true/false`, the code converts it to `1/0`.
+The target column is:
 
-## First Run
-
-After adding `data/raw/kc1.csv`, run:
-
-```powershell
-python src/train_models.py
+```text
+defects
 ```
 
-The script will train SVM and Random Forest baselines and print the evaluation metrics.
-# software-defect-prediction
+Labels are converted to:
+
+- `1` = defective
+- `0` = non-defective
+
+## Method
+
+The dataset is split into:
+
+- 80% training data
+- 20% testing data
+
+GridSearchCV is used to tune both models on the training data. The final results are calculated using the 20% test data.
+
+## Results
+
+| Model | Accuracy | Precision | Recall | F1-score | ROC-AUC |
+|---|---:|---:|---:|---:|---:|
+| SVM Tuned | 0.675 | 0.400 | 0.508 | 0.448 | 0.624 |
+| Random Forest Tuned | 0.724 | 0.466 | 0.429 | 0.446 | 0.618 |
+
+SVM had better recall, so it detected more defective modules. Random Forest had better accuracy and precision, so it made fewer false alarms.
+
+## How to Run
+
+Install the required packages:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+Run the training script:
+
+```powershell
+.\.venv\Scripts\python.exe src\train_models.py
+```
+
+## Output Files
+
+The script creates:
+
+```text
+reports/model_comparison.csv
+reports/best_grid_search_parameters.csv
+reports/random_forest_feature_importance.csv
+figures/
+```
+
+These files can be used in the final report and presentation.
