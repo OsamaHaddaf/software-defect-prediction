@@ -39,7 +39,7 @@ def load_dataset(path: Path = DATA_PATH) -> tuple[pd.DataFrame, pd.Series]:
             "Put the KC1 CSV file at data/raw/kc1.csv, then run again."
         )
 
-    df = pd.read_csv(path).drop_duplicates()
+    df = pd.read_csv(path)
     if TARGET_COLUMN not in df.columns:
         raise ValueError(
             f"Expected target column '{TARGET_COLUMN}'. Found columns: {list(df.columns)}"

@@ -1,3 +1,3 @@
 model,best_cv_f1,best_parameters
-SVM Tuned,0.5041923027971962,"{'model__C': 10, 'model__class_weight': 'balanced', 'model__gamma': 'scale', 'model__kernel': 'rbf'}"
-Random Forest Tuned,0.46309183293593115,"{'class_weight': 'balanced', 'max_depth': 20, 'min_samples_split': 10, 'n_estimators': 200}"
+SVM Tuned,0.4513022043804208,"{'model__C': 1, 'model__class_weight': 'balanced', 'model__gamma': 'scale', 'model__kernel': 'rbf'}"
+Random Forest Tuned,0.45886170430280915,"{'class_weight': 'balanced', 'max_depth': 10, 'min_samples_split': 10, 'n_estimators': 500}"

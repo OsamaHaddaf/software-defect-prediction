@@ -33,16 +33,18 @@ The dataset is split into:
 - 80% training data
 - 20% testing data
 
+The current dataset has 2109 rows, so the split creates 1687 training rows and 422 testing rows.
+
 GridSearchCV is used to tune both models on the training data. The final results are calculated using the 20% test data.
 
 ## Results
 
 | Model | Accuracy | Precision | Recall | F1-score | ROC-AUC |
 |---|---:|---:|---:|---:|---:|
-| SVM Tuned | 0.675 | 0.400 | 0.508 | 0.448 | 0.624 |
-| Random Forest Tuned | 0.724 | 0.466 | 0.429 | 0.446 | 0.618 |
+| SVM Tuned | 0.716 | 0.313 | 0.708 | 0.434 | 0.790 |
+| Random Forest Tuned | 0.841 | 0.488 | 0.600 | 0.538 | 0.822 |
 
-SVM had better recall, so it detected more defective modules. Random Forest had better accuracy and precision, so it made fewer false alarms.
+SVM had higher recall, so it detected more defective modules. Random Forest had better accuracy, precision, F1-score, and ROC-AUC.
 
 ## How to Run
 
