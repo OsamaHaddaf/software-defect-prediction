@@ -1,0 +1,4 @@
+split,total_rows,non_defective,defective,defective_percent
+Full dataset,2109,1783,326,15.457562825983878
+Training set,1687,1426,261,15.471250740960285
+Testing set,422,357,65,15.402843601895736

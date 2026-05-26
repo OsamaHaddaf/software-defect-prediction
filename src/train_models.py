@@ -125,6 +125,39 @@ def save_feature_importance(model: RandomForestClassifier, columns: pd.Index) ->
     plt.close(fig)
 
 
+def save_split_summary(
+    y: pd.Series,
+    y_train: pd.Series,
+    y_test: pd.Series,
+) -> None:
+    summary = pd.DataFrame(
+        [
+            {
+                "split": "Full dataset",
+                "total_rows": len(y),
+                "non_defective": int((y == 0).sum()),
+                "defective": int((y == 1).sum()),
+                "defective_percent": (y == 1).mean() * 100,
+            },
+            {
+                "split": "Training set",
+                "total_rows": len(y_train),
+                "non_defective": int((y_train == 0).sum()),
+                "defective": int((y_train == 1).sum()),
+                "defective_percent": (y_train == 1).mean() * 100,
+            },
+            {
+                "split": "Testing set",
+                "total_rows": len(y_test),
+                "non_defective": int((y_test == 0).sum()),
+                "defective": int((y_test == 1).sum()),
+                "defective_percent": (y_test == 1).mean() * 100,
+            },
+        ]
+    )
+    summary.to_csv(REPORTS_DIR / "dataset_split_summary.csv", index=False)
+
+
 def build_grid_searches() -> dict[str, GridSearchCV]:
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
 
@@ -198,6 +231,7 @@ def main() -> None:
     print("Testing class distribution:")
     print(y_test.value_counts().sort_index())
     print()
+    save_split_summary(y, y_train, y_test)
 
     print(f"Grid search tuning metric: {TUNING_METRIC}")
     print("Grid search uses only the 80% training set.")
